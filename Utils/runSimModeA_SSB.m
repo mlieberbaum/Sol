@@ -1,6 +1,10 @@
-function simOut = runSimModeB_SSB(scn, eph, ephNames)
+function simOut = runSimModeA_SSB(scn, eph, ephNames)
 
-    % Runs the n-body problem in the solar system barycenter frame
+    % Runs the n-body problem in the SSB frame.  First, ensure Earth and
+    % moon are included.
+    if ~any(ismember(ephNames, 'Earth')) || ~any(ismember(ephNames, 'Moon'))
+        error('Earth is required to perform computations in the ECI frame');
+    end
 
     
     %% SIM TIME PARAMETERS

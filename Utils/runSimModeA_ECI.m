@@ -1,8 +1,8 @@
-function simOut = runSimModeB_ECI(scn, eph, ephNames)
+function simOut = runSimModeA_ECI(scn, eph, ephNames)
 
-    % Runs the n-body problem in the ECI frame.  First, ensure Earth is
-    % included.
-    if ~any(ismember(ephNames, 'Earth'))
+    % Runs the n-body problem in the ECI frame.  First, ensure Earth and
+    % moon are included.
+    if ~any(ismember(ephNames, 'Earth')) || ~any(ismember(ephNames, 'Moon'))
         error('Earth is required to perform computations in the ECI frame');
     end
 

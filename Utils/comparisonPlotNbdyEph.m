@@ -29,17 +29,20 @@ function comparisonPlotNbdyEph(scnA, scnC, frame)
     nexttile;
     hold on
     grid on
+    legstr = 'legend(';
     for idx = 1 : numel(ephNames)
         if strcmp(frame, 'SSB')
             plot(scnA.t ./ 3600, vecnorm(scnA.(ephNames{idx}).posSSB - scnC.(ephNames{idx}).posSSB));
         elseif strcmp(frame, 'ECI')
             plot(scnA.t ./ 3600, vecnorm(scnA.(ephNames{idx}).posECI - scnC.(ephNames{idx}).posECI));
         end
+        legstr = [legstr, '''', ephNames{idx}, ''', '];
     end
-    legend(frame, 'Location', 'Best');
+    eval([legstr, '''Location'', ''Best'');'])
     xlabel('Time (hr)')
     ylabel('m')
     title(['Planet Position Delta, ', frame, ', N-Body vs. DE440']);
+    set(gca, 'yscale', 'log')
 
 
     % Planet velocity delta plot: plotted variables depend on the input
@@ -47,17 +50,20 @@ function comparisonPlotNbdyEph(scnA, scnC, frame)
     nexttile;
     hold on
     grid on
+    legstr = 'legend(';
     for idx = 1 : numel(ephNames)
         if strcmp(frame, 'SSB')
             plot(scnA.t ./ 3600, vecnorm(scnA.(ephNames{idx}).velSSB - scnC.(ephNames{idx}).velSSB));
         elseif strcmp(frame, 'ECI')
             plot(scnA.t ./ 3600, vecnorm(scnA.(ephNames{idx}).velECI - scnC.(ephNames{idx}).velECI));
         end
+        legstr = [legstr, '''', ephNames{idx}, ''', '];
     end
-    legend(frame, 'Location', 'Best');
+    eval([legstr, '''Location'', ''Best'');'])
     xlabel('Time (hr)')
     ylabel('m/s')
     title(['Planet Velocity Delta, ', frame, ', N-Body vs. DE440']);
+    set(gca, 'yscale', 'log')
 
 
     % Spacecraft position delta.  Plot all frames available.
@@ -68,14 +74,16 @@ function comparisonPlotNbdyEph(scnA, scnC, frame)
         plot(scnA.t ./ 3600, vecnorm(scnA.spacecraft.posSSB - scnC.spacecraft.posSSB));
         plot(scnA.t ./ 3600, vecnorm(scnA.spacecraft.posECI - scnC.spacecraft.posECI));
         plot(scnA.t ./ 3600, vecnorm(scnA.spacecraft.posMCI - scnC.spacecraft.posMCI));
+        legend('SSB', 'ECI', 'MCI', 'Location', 'Best');
     elseif strcmp(frame, 'ECI')
         plot(scnA.t ./ 3600, vecnorm(scnA.spacecraft.posECI - scnC.spacecraft.posECI));
         plot(scnA.t ./ 3600, vecnorm(scnA.spacecraft.posMCI - scnC.spacecraft.posMCI));
+        legend('ECI', 'MCI', 'Location', 'Best');
     end
     xlabel('Time (hr)')
     ylabel('m')
     title('Spacecraft Position Delta, N-Body vs. DE440')
-    legend(frame, 'Location', 'Best');
+    set(gca, 'yscale', 'log')
 
 
     % Spacecraft velocity delta.  Plot all frames available.
@@ -86,13 +94,15 @@ function comparisonPlotNbdyEph(scnA, scnC, frame)
         plot(scnA.t ./ 3600, vecnorm(scnA.spacecraft.velSSB - scnC.spacecraft.velSSB));
         plot(scnA.t ./ 3600, vecnorm(scnA.spacecraft.velECI - scnC.spacecraft.velECI));
         plot(scnA.t ./ 3600, vecnorm(scnA.spacecraft.velMCI - scnC.spacecraft.velMCI));
+        legend('SSB', 'ECI', 'MCI', 'Location', 'Best');
     elseif strcmp(frame, 'ECI')
         plot(scnA.t ./ 3600, vecnorm(scnA.spacecraft.velECI - scnC.spacecraft.velECI));
         plot(scnA.t ./ 3600, vecnorm(scnA.spacecraft.velMCI - scnC.spacecraft.velMCI));
+        legend('ECI', 'MCI', 'Location', 'Best');
     end
     xlabel('Time (hr)')
     ylabel('m/s')
     title('Spacecraft Velocity Delta, N-Body vs. DE440')
-    legend(frame, 'Location', 'Best');
+    set(gca, 'yscale', 'log')
 
 end

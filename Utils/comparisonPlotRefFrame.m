@@ -41,7 +41,7 @@ function comparisonPlotRefFrame(scn1, scn2, frame1, frame2, frameComp, mode)
     title(tl, [physMdl, ', ', frame1, ' vs. ', frame2, ' Frames'], ...
         'FontWeight', 'Bold', 'FontSize', 16);
     subtitle(tl, ['Plots show deltas expressed in the ', frameComp, ' Frame', 10, ...
-        'Due to large numeric values of the SSB frame, slight', ...
+        'Due to large numeric values of the SSB frame, slight ', ...
         'differences might exist'])
 
 
@@ -50,17 +50,20 @@ function comparisonPlotRefFrame(scn1, scn2, frame1, frame2, frameComp, mode)
     nexttile;
     hold on
     grid on
+    legstr = 'legend(';
     for idx = 1 : numel(ephNames)
         if strcmp(frameComp, 'SSB')
             plot(scn1.t ./ 3600, vecnorm(scn1.(ephNames{idx}).posSSB - scn2.(ephNames{idx}).posSSB));
         elseif strcmp(frameComp, 'ECI')
             plot(scn1.t ./ 3600, vecnorm(scn1.(ephNames{idx}).posECI - scn2.(ephNames{idx}).posECI));
         end
+        legstr = [legstr, '''', ephNames{idx}, ''', '];
     end
-    legend(frameComp, 'Location', 'Best');
+    eval([legstr, '''Location'', ''Best'');'])
     xlabel('Time (hr)')
     ylabel('m')
     title(['Planet Position Delta, ', frame1, ' vs. ', frame2, ' Frame Sims']);
+    set(gca,'yscale','log')
 
 
     % Planet velocity delta plot: plotted variables depend on the input
@@ -68,17 +71,20 @@ function comparisonPlotRefFrame(scn1, scn2, frame1, frame2, frameComp, mode)
     nexttile;
     hold on
     grid on
+    legstr = 'legend(';
     for idx = 1 : numel(ephNames)
         if strcmp(frameComp, 'SSB')
             plot(scn1.t ./ 3600, vecnorm(scn1.(ephNames{idx}).velSSB - scn2.(ephNames{idx}).velSSB));
         elseif strcmp(frameComp, 'ECI')
             plot(scn1.t ./ 3600, vecnorm(scn1.(ephNames{idx}).velECI - scn2.(ephNames{idx}).velECI));
         end
+        legstr = [legstr, '''', ephNames{idx}, ''', '];
     end
-    legend(frameComp, 'Location', 'Best');
+    eval([legstr, '''Location'', ''Best'');'])
     xlabel('Time (hr)')
     ylabel('m/s')
     title(['Planet Velocity Delta, ', frame1, ' vs. ', frame2, ' Frame Sims']);
+    set(gca,'yscale','log')
 
 
     % Spacecraft position delta.  Plot all frames available.
@@ -94,6 +100,7 @@ function comparisonPlotRefFrame(scn1, scn2, frame1, frame2, frameComp, mode)
     ylabel('m')
     title(['Spacecraft Position Delta, ', frame1, ' vs. ', frame2, ' Frame Sims']);
     legend(frameComp, 'Location', 'Best');
+    set(gca,'yscale','log')
 
 
     % Spacecraft velocity delta.  Plot all frames available.
@@ -109,5 +116,6 @@ function comparisonPlotRefFrame(scn1, scn2, frame1, frame2, frameComp, mode)
     ylabel('m/s')
     title(['Spacecraft Velocity Delta, ', frame1, ' vs. ', frame2, ' Frame Sims']);
     legend(frameComp, 'Location', 'Best');
+    set(gca,'yscale','log')
 
 end

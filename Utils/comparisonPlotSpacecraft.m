@@ -28,6 +28,7 @@ function comparisonPlotSpacecraft(scnA, scnB, frame)
     ylabel('m')
     title('Spacecraft Position Delta')
     legend(frame, 'Location', 'Best');
+    set(gca, 'yscale', 'log')
 
 
     % Spacecraft velocity delta.  Plot all frames available.
@@ -41,5 +42,6 @@ function comparisonPlotSpacecraft(scnA, scnB, frame)
     ylabel('m/s')
     title('Spacecraft Velocity Delta')
     legend(frame, 'Location', 'Best');
+    set(gca, 'yscale', 'log')
 
 end

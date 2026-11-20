@@ -48,22 +48,46 @@ scn1 = load('.\Regression\Scn1A-SSB-FullSol.mat');
 scn2 = load('.\Regression\Scn1B-ECI-FullSol.mat');
 comparisonPlotSpacecraft(scn1.simOut, scn2.simOut, 'ECI');
 
+scn1 = load('.\Regression\Scn1A-ECI.mat');
+scn2 = load('.\Regression\Scn1B-ECI.mat');
+comparisonPlotSpacecraft(scn1.simOut, scn2.simOut, 'ECI');
+
+scn1 = load('.\Regression\Scn1A-ECI-VenJup.mat');
+scn2 = load('.\Regression\Scn1B-ECI-VenJup.mat');
+comparisonPlotSpacecraft(scn1.simOut, scn2.simOut, 'ECI');
+
+scn1 = load('.\Regression\Scn1A-ECI-FullSol.mat');
+scn2 = load('.\Regression\Scn1B-ECI-FullSol.mat');
+comparisonPlotSpacecraft(scn1.simOut, scn2.simOut, 'ECI');
+
+
+%% MODE B TO MODE C COMPARISON
+
+% Compares mode B (STK mode) to mode C (full solar system acceleration
+% model).  Spacecraft only, since mode B does not compute Earth position
+% wrt. solar system barycenter.
+
+scn1 = load('.\Regression\Scn1B-ECI-FullSol.mat');
+scn2 = load('.\Regression\Scn1C-SSB-FullSol.mat');
+comparisonPlotSpacecraft(scn2.simOut, scn1.simOut, 'ECI');
+
+
 
 %% MODE A REFERENCE FRAME COMPARISONS
 
-% Compure pure N-Body simulations using Sun, Earth, Moon, and Spacecraft,
+% Compare pure N-Body simulations using Sun, Earth, Moon, and Spacecraft,
 % using SSB and ECI reference frames
 scn1 = load('.\Regression\Scn1A-SSB.mat');
 scn2 = load('.\Regression\Scn1A-ECI.mat');
 comparisonPlotRefFrame(scn1.simOut, scn2.simOut, 'SSB', 'ECI', 'ECI', 'A')
 
-% Compure pure N-Body simulations using Sun, Earth, Moon, and Spacecraft,
+% Compare pure N-Body simulations using Sun, Earth, Moon, and Spacecraft,
 % using SSB and ECI reference frames
 scn1 = load('.\Regression\Scn1A-SSB-VenJup.mat');
 scn2 = load('.\Regression\Scn1A-ECI-VenJup.mat');
 comparisonPlotRefFrame(scn1.simOut, scn2.simOut, 'SSB', 'ECI', 'ECI', 'A')
 
-% Compure pure N-Body simulations using Sun, Earth, Moon, and Spacecraft,
+% Compare pure N-Body simulations using Sun, Earth, Moon, and Spacecraft,
 % using SSB and ECI reference frames
 scn1 = load('.\Regression\Scn1A-SSB-FullSol.mat');
 scn2 = load('.\Regression\Scn1A-ECI-FullSol.mat');
